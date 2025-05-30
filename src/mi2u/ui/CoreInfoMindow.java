@@ -28,6 +28,7 @@ import mindustry.world.blocks.storage.CoreBlock.*;
 
 import static mi2u.MI2UVars.*;
 import static mi2u.io.SettingHandler.TextFieldSetting.*;
+import static mi2u.io.SettingHandler.intParser;
 import static mindustry.Vars.*;
 
 public class CoreInfoMindow extends Mindow2{

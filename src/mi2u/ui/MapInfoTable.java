@@ -73,14 +73,6 @@ public class MapInfoTable extends Table{
             buildBars(barsTable);
         });
 
-        //ui on MI2U
-        button(Iconc.map + "", textb , () -> mapAttsDialog.show()).with(funcSetTextb).size(titleButtonSize);
-        button(Iconc.waves + "", textb, () -> {
-            wavesPopup.popup(Align.top);
-            wavesPopup.snapTo(this);
-            wavesPopup.keepInScreen();
-        }).with(funcSetTextb).size(titleButtonSize);
-
         //map attributes
         mapAttsDialog = new BaseDialog("@mapInfo.buttons.allAttrs");
         mapAttsDialog.shown(this::setupDetailAttsInfo);

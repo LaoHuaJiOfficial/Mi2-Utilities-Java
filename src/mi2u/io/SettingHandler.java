@@ -18,6 +18,7 @@ import static arc.Core.*;
 import static mi2u.MI2UVars.*;
 
 public class SettingHandler{
+    public static Func<String, Object> intParser = Strings::parseInt, floatParser = Strings::parseFloat, boolParser = s -> s.equals("true");
     public static boolean debug;
     public String prefix;
     public Seq<Setting> list = new Seq<>();
@@ -111,10 +112,9 @@ public class SettingHandler{
         settings.put(prefix(name), v);
     }
 
-    public Title title(String pureName){
+    public void title(String pureName){
         var s = new Title(pureName);
         list.add(s);
-        return s;
     }
 
     public CheckSetting checkPref(String name, boolean def){
@@ -381,6 +381,5 @@ public class SettingHandler{
             });
         }
 
-        public static Func<String, Object> intParser = Strings::parseInt, floatParser = Strings::parseFloat, boolParser = s -> s.equals("true");
     }
 }

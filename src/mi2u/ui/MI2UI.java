@@ -1,9 +1,14 @@
 package mi2u.ui;
 
 import arc.*;
+import arc.func.Boolf;
+import arc.func.Boolp;
+import arc.func.Cons;
 import arc.graphics.*;
+import arc.graphics.g2d.TextureRegion;
 import arc.math.*;
 import arc.scene.*;
+import arc.scene.style.Style;
 import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
@@ -15,12 +20,15 @@ import mi2u.ui.elements.*;
 import mindustry.*;
 import mindustry.game.*;
 import mindustry.gen.*;
+import mindustry.graphics.Pal;
 import mindustry.input.*;
 import mindustry.ui.*;
 import mindustry.world.blocks.*;
 
 import static mi2u.MI2UVars.*;
 import static mi2u.io.SettingHandler.TextFieldSetting.*;
+import static mi2u.io.SettingHandler.floatParser;
+import static mi2u.io.SettingHandler.intParser;
 import static mindustry.Vars.*;
 
 public class MI2UI extends Mindow2{
@@ -65,18 +73,40 @@ public class MI2UI extends Mindow2{
         });
 
         titlePane.clear();
-        titlePane.button("Sy\nnc", textb, () -> {
+        mapinfo = new MapInfoTable();
+        addButton(titlePane, MI2UAssets.serverSync, () -> {
             Call.sendChatMessage("/sync");
-        }).color(Color.green).size(titleButtonSize).with(tb -> {
-            tb.getLabel().setFontScale(0.8f);
-        });
-        titlePane.add(mapinfo = new MapInfoTable()).height(titleButtonSize);
-        titlePane.button("" + Iconc.settings, textbtoggle, () -> {
+        }, "Sync Server");
+        addButton(titlePane, MI2UAssets.ruleList, () -> {
+            mapinfo.mapAttsDialog.show();
+        }, "Show Map Rules");
+        addButton(titlePane, MI2UAssets.waveList, () -> {
+            mapinfo.wavesPopup.popup(Align.top);
+            mapinfo.wavesPopup.snapTo(this);
+            mapinfo.wavesPopup.keepInScreen();
+        }, "Show Enemy Waves");
+        addButton(titlePane, MI2UAssets.settingExpand, Styles.clearNoneTogglei, () -> {
             showQuickSettings = !showQuickSettings;
-        }).size(titleButtonSize).checked(tb -> showQuickSettings).with(tb -> {
-            tb.getLabel().setColor(Color.gold);
-        });
-        titlePane.image().growY().width(2f);
+        }, "Expand Other Settings", checked -> showQuickSettings);
+        titlePane.image().color(Pal.gray).growY().width(2f);
+    }
+
+    public void addButton(Table table, TextureRegion icon, Runnable action, String tooltip){
+        table.button(button -> button.table(t -> {
+            t.image(icon).size(titleButtonSize).scaling(Scaling.bounded);
+        }), Styles.clearNonei, action).tooltip(tooltip);
+    }
+
+    public void addButton(Table table, TextureRegion icon, Button.ButtonStyle style, Runnable action, String tooltip){
+        table.button(button -> button.table(t -> {
+            t.image(icon).size(titleButtonSize).scaling(Scaling.bounded);
+        }), style, action).tooltip(tooltip);
+    }
+
+    public void addButton(Table table, TextureRegion icon, Button.ButtonStyle style, Runnable action, String tooltip, Boolf<Button> checked){
+        table.button(button -> button.table(t -> {
+            t.image(icon).size(titleButtonSize).scaling(Scaling.bounded);
+        }), style, action).tooltip(tooltip).checked(checked);
     }
 
     @Override

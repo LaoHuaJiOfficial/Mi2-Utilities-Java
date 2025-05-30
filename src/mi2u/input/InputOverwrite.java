@@ -9,10 +9,6 @@ import static mindustry.Vars.*;
 
 /** The inputOverwrite accept commands and change control states, implements of control should be overwritten and run according to states on each update. */
 public interface InputOverwrite{
-    default void headless(boolean headless){};
-    default boolean headless(){
-        return false;
-    };
     default void build(boolean build){};
 
     default void boost(boolean boost){};

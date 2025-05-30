@@ -79,7 +79,9 @@ public class RtsCommand{
             MI2Utils.setValue(ui.hudfrag.blockfrag, "blockSelectEnd", true);
             //cancel any stored block selections
             ObjectMap<Category, Block> selectBlocks = MI2Utils.getValue(ui.hudfrag.blockfrag, "selectedBlocks");
-            selectBlocks.each((cat, block) -> selectBlocks.put(cat, null));
+            if (selectBlocks != null) {
+                selectBlocks.each((cat, block) -> selectBlocks.put(cat, null));
+            }
             for(int ki = 0; ki < DesktopInputExt.numKey.length; ki++){
                 if(Core.input.keyTap(DesktopInputExt.numKey[ki])){
                     if(creatingFormation){

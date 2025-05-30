@@ -454,8 +454,8 @@ public class FullAI extends AIController{
     }
 
     public class LogicMode extends Mode{
-        public static final Seq<Class<? extends LInstruction>> bannedInstructions = new Seq<>();
-        public static LogicMode logicMode;
+        public final Seq<Class<? extends LInstruction>> bannedInstructions = new Seq<>();
+        public LogicMode logicMode;
         public LogicModeCode code;
         public Seq<LogicModeCode> codes;
 
@@ -465,12 +465,12 @@ public class FullAI extends AIController{
         MI2Utils.IntervalMillis timer = new MI2Utils.IntervalMillis();
         MI2Utils.IntervalMillis actionTimer = new MI2Utils.IntervalMillis(2);
         public boolean itemTrans, payloadTrans;
-        public static StringBuffer log = new StringBuffer();
+        public StringBuffer log = new StringBuffer();
         Queue<BuildPlan> plans = new Queue<>();
 
         public PopupTable customAIUITable = new PopupTable();
 
-        public static PopupTable chooseContentTable = new PopupTable();
+        public PopupTable chooseContentTable = new PopupTable();
 
         //public int lastPathId = 0;
         //public float lastMoveX, lastMoveY;
@@ -902,7 +902,7 @@ public class FullAI extends AIController{
             return false;
         }
 
-        public static <T extends UnlockableContent> void buildTable(Table table, Seq<T> items, Prov<T> holder, Cons<T> consumer, boolean closeSelect, int rows, int columns){
+        public <T extends UnlockableContent> void buildTable(Table table, Seq<T> items, Prov<T> holder, Cons<T> consumer, boolean closeSelect, int rows, int columns){
             ButtonGroup<ImageButton> group = new ButtonGroup<>();
             group.setMinCheckCount(0);
             Table cont = new Table().top();
@@ -939,7 +939,7 @@ public class FullAI extends AIController{
             table.top().add(main);
         }
 
-        public static class LogicModeCode{
+        public class LogicModeCode{
             String name;
             String value;
             public LogicModeCode(){}
